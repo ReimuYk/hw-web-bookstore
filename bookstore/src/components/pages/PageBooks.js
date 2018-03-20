@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import { List, Avatar, Button, Spin, Form, Table, Divider } from 'antd';
+import { outData} from './PageBuyerlist'
 
 const dataSource = [{
   key: '1',
@@ -69,7 +70,6 @@ const columns = [{
 }, ];
 
 
-export var outData = new Array()
 class PageBooks extends Component{
   render(){
     return (
@@ -83,9 +83,10 @@ class PageBooks extends Component{
   exportItem(record,index){
     console.log(record,index)
     var item = {
+      BID:outData.length+1,
       ID:record.ID,
       cost:record.cost,
-      date:record.cost,
+      date:record.date,
       key:record.key,
       name:record.name,
       publish:record.publish,
