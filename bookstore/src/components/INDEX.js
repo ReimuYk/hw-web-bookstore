@@ -4,8 +4,9 @@ import './tab.css'
 import PageHome from './pages/PageHome'
 import PageBuyerlist from './pages/PageBuyerlist'
 import PageLogin from './pages/PageLogin'
-import PageRegister from './pages/PageRegister'
+import RegisterForm from './pages/PageRegister'
 import PageHomepage from './pages/PageHomepage'
+import PageBooks from './pages/PageBooks'
 
 class Index extends Component{
     render(){
@@ -21,6 +22,11 @@ class Index extends Component{
                         <li class="nav-item">
                             <Link tag="div" class="tab-item" to="/index" >
                             <span class="tab-link t">首页</span>
+                            </Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link tag="div" class="tab-item" to="/books" >
+                            <span class="tab-link t">浏览书籍</span>
                             </Link>
                         </li>
                         <li class="nav-item">
@@ -64,13 +70,13 @@ class Index extends Component{
 
                 <div id="banner_link" class="head-banner report-wrap-module report-scroll-module">
                     <div class="head-content bili-wrapper">
-                    <div class="search">
+                    {/* <div class="search">
                         <form class="searchform">
                         <input id="keyword" type="text" value="" class="search-keyword"/>
                         <button class="search-submit"></button>
                         </form>
                         <a class="link-ranking"><span>搜索</span></a>
-                    </div>
+                    </div> */}
                     </div>
 
                 </div>
@@ -78,8 +84,9 @@ class Index extends Component{
                 <Switch>
                     <Route exact path='/' component={PageHome}/>
                     <Route path='/index' component={PageHome}/>
+                    <Route path='/books' component={PageBooks}/>
                     <Route path='/buyerlist' component={PageBuyerlist}/>
-                    <Route path='/register' component={PageRegister}/>
+                    <Route path='/register' component={RegisterForm}/>
                     <Route path='/login' component={PageLogin}/>
                     <Route path='/homepage' component={PageHomepage}/>
                 </Switch>
