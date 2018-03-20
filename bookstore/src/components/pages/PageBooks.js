@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import { List, Avatar, Button, Spin, Form, Table } from 'antd';
+import { List, Avatar, Button, Spin, Form, Table, Divider } from 'antd';
 
 const dataSource = [{
   key: '1',
@@ -32,10 +32,12 @@ const columns = [{
   title: 'ID',
   dataIndex: 'ID',
   key: 'id',
+  sorter: (a,b)=>a<b
 }, {
   title: '书名',
   dataIndex: 'name',
   key: 'name',
+  sorter: (a,b)=>a<b
 }, {
   title: '作者',
   dataIndex: 'writer',
@@ -49,6 +51,7 @@ const columns = [{
   title: '出版年份',
   dataIndex: 'date',
   key: 'date',
+  sorter: (a,b)=>a<b
 }, {
   title: '出版社',
   dataIndex: 'publish',
@@ -57,18 +60,44 @@ const columns = [{
   title: '购买',
   dataIndex: 'pay',
   key: 'pay',
-  render: (text)=><a href='www.baidu.com'>加入购物车</a>
+  render: (text, record)=>(
+    <span>
+      <a href="#">加入购物车</a>
+      <Divider type="vertical" />
+    </span>
+  ),
 }, ];
 
+
+export var outData = new Array()
 class PageBooks extends Component{
   render(){
     return (
       <div style={{margin:'auto',width:1200,}}>
         <Table dataSource={dataSource} columns={columns} 
+        onRowClick={this.exportItem}
         />
       </div>
     )
   }
+  exportItem(record,index){
+    console.log(record,index)
+    var item = {
+      ID:record.ID,
+      cost:record.cost,
+      date:record.cost,
+      key:record.key,
+      name:record.name,
+      publish:record.publish,
+      writer:record.writer
+    }
+    console.log('item',item);
+    outData.push(item);
+    console.log('outdata',outData)
+    console.log('datasource',dataSource)
+  }
+
+
 }
 
 
