@@ -1,14 +1,47 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import { List, Avatar, Button, Spin, Form, Table, Divider } from 'antd';
-// import {outData} from './PageBooks'
+
+var stat={
+  this_rowkey:"",
+}
+
+function addNum(th,record){
+  var idd = stat.this_rowkey;
+  if (idd==""){
+    return;
+  }else{
+    th.num += 1;
+    if (th.num==1){
+      outData.push(th)
+    }
+    stat.this_rowkey=""
+    return
+  }
+}
+
+function minusNum(th,record){
+  var idd = stat.this_rowkey;
+  console.log('th',th)
+  if (idd==""){
+    return;
+  }else{
+    console.log('th.num',th.num)
+    th.num -= 1;
+    if (th.num==0){
+      for (var i=0;i<outData.length;i++){
+        if (outData[i].ID==th.ID){
+          outData.splice(i,1)
+          break;
+        }
+      }
+    }
+    stat.this_rowkey=""
+    return
+  }
+}
 
 const columns = [{
-  title: 'BID',
-  dataIndex: 'BID',
-  key: 'bid',
-  sorter: (a,b)=>a<b
-}, {
   title: 'ID',
   dataIndex: 'ID',
   key: 'id',
@@ -36,15 +69,16 @@ const columns = [{
   title: '出版社',
   dataIndex: 'publish',
   key: 'publish',
-}, {
-  title: '删除',
+},{
+  title: '数量',
   dataIndex: 'pay',
   key: 'pay',
   render: (text, record)=>(
-    <span>
-      <a href="#">删除</a>
-      <Divider type="vertical" />
-    </span>
+      <span>
+        <Button href="#" type="primary" onClick={minusNum.bind(this,record)}>-</Button>
+        <a style={{margin:10}}>{record.num}</a>
+        <Button href="#" type="primary" onClick={addNum.bind(this,record)}>+</Button>
+      </span>
   ),
 }, ];
 
@@ -55,20 +89,14 @@ class PageBuyerlist extends Component{
       <div style={{margin:'auto',width:1200,}}>
         <h5 style={{fontSize:30}}>我的购物车</h5>
         <Table dataSource={outData} columns={columns} 
-        onRowClick={this.deleteRow}
+        onRowClick={this.setRowKey}
         />
       </div>
     )
   }
-  deleteRow(record, index){
-      for (var i=0;i<outData.length;i++){
-        console.log(i,outData[i].BID,record.BID)
-        if (outData[i].BID==record.BID){
-          outData.splice(i,1);
-          console.log('outdata',outData)
-          return;
-        }
-      }
+  setRowKey(record,index){
+    stat.this_rowkey=record.ID;
+    console.log(stat.this_rowkey);
   }
 
 

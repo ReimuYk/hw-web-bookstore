@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { List, Avatar, Button, Spin, Form, Table, Divider } from 'antd';
 import { outData} from './PageBuyerlist'
 
-const dataSource = [{
+export const dataSource = [{
   key: '1',
   ID: 'B00000',
   name: 'book1',
@@ -11,6 +11,7 @@ const dataSource = [{
   cost: 100,
   date: '2017.05.09',
   publish: '出版社000',
+  num:0,
 }, {
   key: '2',
   ID: 'B00001',
@@ -19,6 +20,7 @@ const dataSource = [{
   cost: 65,
   date: '2017.11.09',
   publish: '出版社001',
+  num:0,
 }, {
   key: '3',
   ID: 'B00012',
@@ -27,7 +29,51 @@ const dataSource = [{
   cost: 150,
   date: '2017.06.11',
   publish: '出版社002',
+  num:0,
 },];
+
+var stat={
+  this_rowkey:"",
+}
+
+function addNum(th,record){
+  var idd = stat.this_rowkey;
+  if (idd==""){
+    return;
+  }else{
+    th.num += 1;
+    if (th.num==1){
+      outData.push(th)
+    }
+    stat.this_rowkey=""
+    return
+  }
+}
+
+function minusNum(th,record){
+  var idd = stat.this_rowkey;
+  if (idd==""){
+    return;
+  }else{
+    th.num -= 1;
+    if (th.num==0){
+      for (var i=0;i<outData.length;i++){
+        if (outData[i].ID==th.ID){
+          outData.splice(i,1)
+          break;
+        }
+      }
+    }
+    stat.this_rowkey=""
+    return
+  }
+}
+
+function prt(a1,record){
+  console.log('a1',a1);
+  a1.num += 1;
+  console.log('record',record)
+}
 
 const columns = [{
   title: 'ID',
@@ -62,10 +108,18 @@ const columns = [{
   dataIndex: 'pay',
   key: 'pay',
   render: (text, record)=>(
-    <span>
-      <a href="#">加入购物车</a>
-      <Divider type="vertical" />
-    </span>
+    record.num ? (
+      <span>
+        <Button href="#" type="primary" onClick={minusNum.bind(this,record)}>-</Button>
+        <a style={{margin:10}}>{record.num}</a>
+        <Button href="#" type="primary" onClick={addNum.bind(this,record)}>+</Button>
+      </span>
+    ):(
+      <span>
+        <a href="#" onClick={addNum.bind(this,record)}>加入购物车</a>
+        <Divider type="vertical" />
+      </span>
+    )
   ),
 }, ];
 
@@ -75,7 +129,8 @@ class PageBooks extends Component{
     return (
       <div style={{margin:'auto',width:1200,}}>
         <Table dataSource={dataSource} columns={columns} 
-        onRowClick={this.exportItem}
+        onRowClick={this.setRowKey}
+        style={{textAlign:'center'}}
         />
       </div>
     )
@@ -97,8 +152,10 @@ class PageBooks extends Component{
     console.log('outdata',outData)
     console.log('datasource',dataSource)
   }
-
-
+  setRowKey(record,index){
+    stat.this_rowkey=record.ID;
+    console.log(stat.this_rowkey);
+  }
 }
 
 

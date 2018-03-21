@@ -34,6 +34,11 @@ class Index extends Component{
                             <span class="tab-link t">我的购物车</span>
                             </Link>
                         </li>
+                        <li class="nav-item">
+                            <Link tag="div" class="tab-item" to="/adminbooks" >
+                            <span class="tab-link t">管理书籍</span>
+                            </Link>
+                        </li>
                     <li>
                         <div class="reg">
                         <li class="nav-item">
