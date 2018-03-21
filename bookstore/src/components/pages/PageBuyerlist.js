@@ -15,6 +15,7 @@ function addNum(th,record){
     if (th.num==1){
       outData.push(th)
     }
+    calcTotal();
     stat.this_rowkey=""
     return
   }
@@ -36,6 +37,7 @@ function minusNum(th,record){
         }
       }
     }
+    calcTotal();
     stat.this_rowkey=""
     return
   }
@@ -83,6 +85,14 @@ const columns = [{
 }, ];
 
 export var outData = new Array();
+var totalCost = 0;
+export function calcTotal(){
+  totalCost = 0;
+  for (var i=0;i<outData.length;i++){
+    totalCost += outData[i].cost*outData[i].num;
+  }
+}
+
 class PageBuyerlist extends Component{
   render(){
     return (
@@ -90,7 +100,14 @@ class PageBuyerlist extends Component{
         <h5 style={{fontSize:30}}>我的购物车</h5>
         <Table dataSource={outData} columns={columns} 
         onRowClick={this.setRowKey}
+        footer={()=>(
+          <div style={{marginLeft:1000}}>
+            <a style={{fontSize:35}}>Total:</a>
+            <a style={{fontSize:35}}>   {totalCost}</a>
+          </div>
+        )}
         />
+        <Button type='primary'>Submit</Button>
       </div>
     )
   }

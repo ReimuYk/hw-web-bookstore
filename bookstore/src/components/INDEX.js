@@ -7,6 +7,7 @@ import PageLogin from './pages/PageLogin'
 import RegisterForm from './pages/PageRegister'
 import PageHomepage from './pages/PageHomepage'
 import PageBooks from './pages/PageBooks'
+import PageAdmin from './pages/PageAdmin'
 
 class Index extends Component{
     render(){
@@ -94,6 +95,7 @@ class Index extends Component{
                     <Route path='/register' component={RegisterForm}/>
                     <Route path='/login' component={PageLogin}/>
                     <Route path='/homepage' component={PageHomepage}/>
+                    <Route path='/adminbooks' component={PageAdmin}/>
                 </Switch>
             </div>
         )
