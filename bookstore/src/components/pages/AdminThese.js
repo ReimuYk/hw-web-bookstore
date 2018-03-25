@@ -31,8 +31,9 @@ class AdminThese extends React.Component {
         title: 'ID',
         dataIndex: 'ID',
         key: 'id',
+        width: 100,
         sorter: (a,b)=>a<b,
-        render: (text, record) => this.renderColumns(text, record, 'name')
+        render: (text, record) => <EditableCell editable={0} value={text} />
       }, {
         title: '书名',
         dataIndex: 'name',
@@ -85,6 +86,7 @@ class AdminThese extends React.Component {
         title: '编辑',
         dataIndex: 'edit',
         key: 'edit',
+        width: 200,
         render: (text, record) => {
             const { editable } = record;
             return (
@@ -94,10 +96,15 @@ class AdminThese extends React.Component {
                     <span>
                       <a onClick={() => this.save(record.key)}>Save</a>
                       <Popconfirm title="Sure to cancel?" onConfirm={() => this.cancel(record.key)}>
-                        <a>Cancel</a>
+                        <a style={{marginLeft:20}}>Cancel</a>
                       </Popconfirm>
                     </span>
-                    : <a onClick={() => this.edit(record.key)}>Edit</a>
+                    : <span>
+                        <a onClick={() => this.edit(record.key)}>Edit</a>
+                        <Popconfirm title="Sure to delete?" onConfirm={() => this.cancel(record.key)}>
+                          <a style={{marginLeft:20}}>Del</a>
+                        </Popconfirm>
+                      </span>
                 }
               </div>
             );

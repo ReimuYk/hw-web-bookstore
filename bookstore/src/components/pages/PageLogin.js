@@ -40,7 +40,7 @@ class NormalLoginForm extends React.Component {
             <Checkbox style={{float:'left'}}>Remember me</Checkbox>
           )}
           <a className="login-form-forgot" href="" style={{float:'right'}}>Forgot password</a><br/>
-          <Button type="primary" htmlType="submit" className="login-form-button" style={{width:300}}>
+          <Button type="primary" htmlType="submit" className="login-form-button" style={{width:300}} href="/index">
             Log in
           </Button><br/>
           <a href="/register" style={{float:'left'}}>Or register now!</a>
