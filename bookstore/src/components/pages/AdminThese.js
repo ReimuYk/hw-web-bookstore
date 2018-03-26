@@ -31,13 +31,14 @@ class AdminThese extends React.Component {
         title: 'ID',
         dataIndex: 'ID',
         key: 'id',
-        width: 100,
+        width: 80,
         sorter: (a,b)=>a<b,
         render: (text, record) => <EditableCell editable={0} value={text} />
       }, {
         title: '书名',
         dataIndex: 'name',
         key: 'name',
+        width:220,
         sorter: (a,b)=>a<b,
         filterDropdown: (
           <div className="custom-filter-dropdown">
@@ -64,23 +65,27 @@ class AdminThese extends React.Component {
         title: '作者',
         dataIndex: 'writer',
         key: 'writer',
+        width:100,
         render: (text, record) => this.renderColumns(text, record, 'name')
       }, {
         title: '价格',
         dataIndex: 'cost',
         key: 'cost',
+        width:100,
         sorter: (a,b)=>a.cost-b.cost,
         render: (text, record) => this.renderColumns(text, record, 'name')
       }, {
         title: '出版年份',
         dataIndex: 'date',
         key: 'date',
+        width:200,
         sorter: (a,b)=>a<b,
         render: (text, record) => this.renderColumns(text, record, 'name')
       }, {
         title: '出版社',
         dataIndex: 'publish',
         key: 'publish',
+        width:200,
         render: (text, record) => this.renderColumns(text, record, 'name')
       }, {
         title: '编辑',
