@@ -106,7 +106,7 @@ class AdminThese extends React.Component {
                     </span>
                     : <span>
                         <a onClick={() => this.edit(record.key)}>Edit</a>
-                        <Popconfirm title="Sure to delete?" onConfirm={() => this.cancel(record.key)}>
+                        <Popconfirm title="Sure to delete?" onConfirm={() => this.delete(record.key)}>
                           <a style={{marginLeft:20}}>Del</a>
                         </Popconfirm>
                       </span>
@@ -187,6 +187,15 @@ class AdminThese extends React.Component {
       delete target.editable;
       this.setState({ data: newData });
       this.cacheData = newData.map(item => ({ ...item }));
+    }
+  }
+  delete(key) {
+    for (var i=0;i<data.length;i++){
+      console.log(i,data[i],key)
+      if (data[i].key===key){
+        data.splice(i,1);
+        this.setState({data:data})
+      }
     }
   }
   cancel(key) {

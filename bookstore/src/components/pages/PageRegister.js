@@ -112,10 +112,11 @@ class PageRegister extends React.Component {
 
     return (
     <div class="register-form" style={divStyle}>
+      <h1 style={{fontSize:50}}>Register!</h1>
       <Form onSubmit={this.handleSubmit}>
         <FormItem
           {...formItemLayout}
-          label="E-mail"
+          label="邮箱"
         >
           {getFieldDecorator('email', {
             rules: [{
@@ -129,7 +130,7 @@ class PageRegister extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Password"
+          label="密码"
         >
           {getFieldDecorator('password', {
             rules: [{
@@ -143,7 +144,7 @@ class PageRegister extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Confirm Password"
+          label="确认密码"
         >
           {getFieldDecorator('confirm', {
             rules: [{
@@ -159,7 +160,7 @@ class PageRegister extends React.Component {
           {...formItemLayout}
           label={(
             <span>
-              Nickname&nbsp;
+              昵称&nbsp;
               <Tooltip title="What do you want others to call you?">
                 <Icon type="question-circle-o" />
               </Tooltip>
@@ -174,7 +175,7 @@ class PageRegister extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Habitual Residence"
+          label="地址"
         >
           {getFieldDecorator('residence', {
             initialValue: ['zhejiang', 'hangzhou', 'xihu'],
@@ -185,7 +186,7 @@ class PageRegister extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Phone Number"
+          label="电话号码"
         >
           {getFieldDecorator('phone', {
             rules: [{ required: true, message: 'Please input your phone number!' }],
@@ -195,7 +196,7 @@ class PageRegister extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Website"
+          label="个人主页"
         >
           {getFieldDecorator('website', {
             rules: [{ required: true, message: 'Please input website!' }],
@@ -211,8 +212,8 @@ class PageRegister extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Captcha"
-          extra="We must make sure that your are a human."
+          label="验证码"
+          // extra="We must make sure that your are a human."
         >
           <Row gutter={8}>
             <Col span={12}>
@@ -223,7 +224,7 @@ class PageRegister extends React.Component {
               )}
             </Col>
             <Col span={12}>
-              <Button>Get captcha</Button>
+              <Button>获取验证码</Button>
             </Col>
           </Row>
         </FormItem>
@@ -231,11 +232,11 @@ class PageRegister extends React.Component {
           {getFieldDecorator('agreement', {
             valuePropName: 'checked',
           })(
-            <Checkbox>I have read the <a href="">agreement</a></Checkbox>
+            <Checkbox>我已经阅读并同意了 <a href="">在线书店使用规则</a></Checkbox>
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">Register</Button>
+          <Button type="primary" htmlType="submit">注册</Button>
         </FormItem>
       </Form>
     </div>
