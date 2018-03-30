@@ -7,6 +7,7 @@ var stat={
 }
 
 function addNum(th,record){
+  console.log(th,record)
   var idd = stat.this_rowkey;
   if (idd==""){
     return;

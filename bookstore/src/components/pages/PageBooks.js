@@ -152,6 +152,9 @@ class PageBooks extends Component{
         }, () => this.searchInput && this.searchInput.focus());
       },
       onFilter: (value, record) => record.address.indexOf(value) === 0,
+      render: (text,record)=>(
+        <a href={"details?bid="+record.ID}>{record.name}</a>
+      )
     }, {
       title: '作者',
       dataIndex: 'writer',
