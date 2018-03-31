@@ -342,11 +342,12 @@ a,a:hover,ins {
 .header-m .head-banner {
 	position: relative;
 	z-index: 199;
-	height: 170px;
+	height: 270px;
 	margin-top: -42px;
 	background: #eee;
 	background-position: center -10px;
-	background-repeat: no-repeat
+	background-repeat: no-repeat;
+	background-image: url("./pages/assets/banner.jpg")
 }
 
 .header-m .head-banner .banner-link {
