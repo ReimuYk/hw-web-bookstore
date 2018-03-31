@@ -4,6 +4,7 @@ import { List, Avatar, Button, Spin, Form, Table, Divider, Input, Icon } from 'a
 import { outData} from './PageBuyerlist'
 import './CSS-PageBooks.css'
 import {calcTotal} from './PageBuyerlist'
+import { max } from 'moment';
 
 export const data = [{
   key: '1',
@@ -84,9 +85,14 @@ function prt(a1,record){
 
 class PageBooks extends Component{
   state = {
-    filterDropdownVisible: false,
+    filterDropdownVisibleSearch: false,
+    filterDropdownVisibleCost: false,
+    filterDropdownVisibleWriter: false,
     data: data,
     searchText: '',
+    minCost: '',
+    maxCost: '',
+    searchWriter: '',
     filtered: false,
   };
  
@@ -94,12 +100,21 @@ class PageBooks extends Component{
   onInputChange = (e) => {
     this.setState({ searchText: e.target.value });
   }
+  onInputChangeMinCost = (e) => {
+    this.setState({ minCost: e.target.value });
+  }
+  onInputChangeMaxCost = (e) => {
+    this.setState({ maxCost: e.target.value });
+  }
+  onInputChangeWriter = (e) => {
+    this.setState({ searchWriter: e.target.value });
+  }
   onSearch = () => {
     console.log('onsearch')
     const { searchText } = this.state;
     const reg = new RegExp(searchText, 'gi');
     this.setState({
-      filterDropdownVisible: false,
+      filterDropdownVisibleSearch: false,
       filtered: !!searchText,
       data: data.map((record) => {
         console.log('data search')
@@ -117,6 +132,51 @@ class PageBooks extends Component{
               ))}
             </span>
           ),
+        });
+      }).filter(record => !!record),
+    });
+  }
+  onSearchWriter = () => {
+    console.log('onsearch')
+    const { searchWriter } = this.state;
+    const reg = new RegExp(searchWriter, 'gi');
+    this.setState({
+      filterDropdownVisibleWriter: false,
+      filtered: !!searchWriter,
+      data: data.map((record) => {
+        console.log('data search')
+        const match = record.writer.match(reg);
+        if (!match) {
+          return null;
+        }
+        console.log('record',record)
+        return ( {
+          ...record,
+          writer: (
+            <span>
+              {record.writer.split(reg).map((text, i) => (
+                i > 0 ? [<span className="highlight">{match[0]}</span>, text] : text
+              ))}
+            </span>
+          ),
+        });
+      }).filter(record => !!record),
+    });
+  }
+  onSearchCost = () => {
+    console.log('onsearchcost')
+    const { minCost, maxCost } = this.state;
+    this.setState({
+      filterDropdownVisibleCost: false,
+      filtered: !!minCost && !!maxCost,
+      data: data.map((record) => {
+        console.log('data search')
+        const match = record.cost<=eval(maxCost) && record.cost>=eval(minCost);
+        if (!match && minCost!=="" && maxCost!=="") {
+          return null;
+        }
+        return ( {
+          ...record,
         });
       }).filter(record => !!record),
     });
@@ -144,11 +204,11 @@ class PageBooks extends Component{
           <Button type="primary" onClick={this.onSearch}>Search</Button>
         </div>
       ),
-      filterIcon: <Icon type="smile-o" style={{ color: this.state.filtered ? '#108ee9' : '#aaa' }} />,
-      filterDropdownVisible: this.state.filterDropdownVisible,
+      filterIcon: <Icon type="search" style={{ color: this.state.filtered ? '#108ee9' : '#aaa' }} />,
+      filterDropdownVisible: this.state.filterDropdownVisibleSearch,
       onFilterDropdownVisibleChange: (visible) => {
         this.setState({
-          filterDropdownVisible: visible,
+          filterDropdownVisibleSearch: visible,
         }, () => this.searchInput && this.searchInput.focus());
       },
       onFilter: (value, record) => record.address.indexOf(value) === 0,
@@ -159,11 +219,58 @@ class PageBooks extends Component{
       title: '作者',
       dataIndex: 'writer',
       key: 'writer',
+      filterDropdown: (
+        <div className="custom-filter-dropdown">
+          <Input
+            ref={ele => this.searchInput = ele}
+            placeholder="Search writer"
+            value={this.state.searchWriter}
+            onChange={this.onInputChangeWriter}
+            onPressEnter={this.onSearchWriter}
+          />
+          <Button type="primary" onClick={this.onSearchWriter}>Search</Button>
+        </div>
+      ),
+      filterIcon: <Icon type="search" style={{ color: this.state.filtered ? '#108ee9' : '#aaa' }} />,
+      filterDropdownVisible: this.state.filterDropdownVisibleWriter,
+      onFilterDropdownVisibleChange: (visible) => {
+        this.setState({
+          filterDropdownVisibleWriter: visible,
+        }, () => this.searchInput && this.searchInput.focus());
+      },
+      onFilter: (value, record) => record.address.indexOf(value) === 0,
     }, {
       title: '价格',
       dataIndex: 'cost',
       key: 'cost',
-      sorter: (a,b)=>a.cost-b.cost
+      sorter: (a,b)=>a.cost-b.cost,
+      filterDropdown: (
+        <div className="custom-filter-dropdown">
+          <Input
+            ref={ele => this.searchInput = ele}
+            placeholder="minCost"
+            value={this.state.minCost}
+            onChange={this.onInputChangeMinCost}
+            onPressEnter={this.onSearchCost}
+          />
+          <Input
+            ref={ele => this.searchInput = ele}
+            placeholder="maxCost"
+            value={this.state.maxCost}
+            onChange={this.onInputChangeMaxCost}
+            onPressEnter={this.onSearchCost}
+          />
+          <Button type="primary" onClick={this.onSearchCost}>Search</Button>
+        </div>
+      ),
+      filterIcon: <Icon type="search" style={{ color: this.state.filtered ? '#108ee9' : '#aaa' }} />,
+      filterDropdownVisible: this.state.filterDropdownVisibleCost,
+      onFilterDropdownVisibleChange: (visible) => {
+        this.setState({
+          filterDropdownVisibleCost: visible,
+        }, () => this.searchInput && this.searchInput.focus());
+      },
+      onFilter: (value, record) => record.address.indexOf(value) === 0,
     }, {
       title: '出版年份',
       dataIndex: 'date',
