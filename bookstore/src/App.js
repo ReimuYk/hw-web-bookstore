@@ -20,8 +20,8 @@ class App extends Component {
           {/* <MainRouter /> */}
           <Index />
         </BrowserRouter>
-        <Button type="primary">Button</Button>
-        <header className="App-header">
+        {/* <Button type="primary">Button</Button> */}
+        {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">this is a title</h1>
         </header>
@@ -29,7 +29,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
       
-      <Test/>
+      <Test/> */}
       </div>
     );
   }

@@ -9,6 +9,8 @@ import PageHomepage from './pages/PageHomepage'
 import PageBooks from './pages/PageBooks'
 import PageAdmin from './pages/PageAdmin'
 import PageDetails from './pages/PageDetails'
+import PageHistory from './pages/PageHistory'
+
 
 class Index extends Component{
     render(){
@@ -29,6 +31,11 @@ class Index extends Component{
                         <li class="nav-item">
                             <Link tag="div" class="tab-item" to="/books" >
                             <span class="tab-link t">浏览书籍</span>
+                            </Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link tag="div" class="tab-item" to="/history" >
+                            <span class="tab-link t">历史订单</span>
                             </Link>
                         </li>
                         <li class="nav-item">
@@ -93,6 +100,7 @@ class Index extends Component{
                     <Route path='/index' component={PageHome}/>
                     <Route path='/books' component={PageBooks}/>
                     <Route path='/buyerlist' component={PageBuyerlist}/>
+                    <Route path='/history' component={PageHistory}/>
                     <Route path='/register' component={RegisterForm}/>
                     <Route path='/login' component={PageLogin}/>
                     <Route path='/homepage' component={PageHomepage}/>
