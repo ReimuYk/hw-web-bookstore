@@ -14,7 +14,7 @@ class PageDetails extends React.Component{
                 <Col style={{width:200,margin:80}} span={6}>
                     <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" style={{width:250}}/>
                 </Col>
-                <Col span={12} style={{align:'left',marginTop:80,width:400}}>
+                <Col span={16} style={{align:'left',marginTop:80,width:400}}>
                     <ul>
                         <li style={{fontSize:30}}>
                             ID:{this.props.location.search.substring(5)}
