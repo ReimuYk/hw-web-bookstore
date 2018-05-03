@@ -102,7 +102,7 @@ class PageBuyerlist extends Component{
         <Table dataSource={outData} columns={columns} 
         onRowClick={this.setRowKey}
         footer={()=>(
-          <div style={{marginLeft:1000}}>
+          <div style={{marginLeft:800}}>
             <a style={{fontSize:35}}>Total:</a>
             <a style={{fontSize:35}}>   {totalCost}</a>
           </div>

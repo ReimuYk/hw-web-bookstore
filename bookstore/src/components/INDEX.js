@@ -10,9 +10,16 @@ import PageBooks from './pages/PageBooks'
 import PageAdmin from './pages/PageAdmin'
 import PageDetails from './pages/PageDetails'
 import PageHistory from './pages/PageHistory'
+import {logintype} from './pages/PageLogin'
 
 
 class Index extends Component{
+    logout(){
+        // alert(document.cookie)
+        document.cookie='username=;'
+        window.location.href='/index'
+    }
+
     render(){
         return (
             <div class="tab">
@@ -60,6 +67,9 @@ class Index extends Component{
                             <span class="tab-link">登录</span>
                             </Link>
                         </li>
+                        <li class="nav-item">
+                            <span class="tab-link">{logintype}</span>
+                        </li>
                         </div>
                     </li>
                     <li>
@@ -70,9 +80,9 @@ class Index extends Component{
                             </Link>
                         </li>
                         <li class="nav-item">
-                            <Link tag="div" class="tab-item" to="/index">
-                            <span class="tab-link t">注销</span>
-                            </Link>
+                            <div tag="div" class="tab-item">
+                            <span class="tab-link t" onClick={this.logout} href='/index'>注销</span>
+                            </div>
                         </li>
                         </div>
                     </li>

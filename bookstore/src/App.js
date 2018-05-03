@@ -8,12 +8,13 @@ import Test from './components/test'
 import MainRouter from './components/router-header'
 import Button from 'antd/lib/button'
 import Index from './components/INDEX'
-
+import {CookiesProvider} from 'react-cookie'
 
 
 class App extends Component {
   render() {
     return (
+      <CookiesProvider>
       <div className="App">
 
         <BrowserRouter>
@@ -31,6 +32,7 @@ class App extends Component {
       
       <Test/> */}
       </div>
+      </CookiesProvider>
     );
   }
   

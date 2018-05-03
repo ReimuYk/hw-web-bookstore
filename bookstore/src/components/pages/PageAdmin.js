@@ -3,12 +3,18 @@ import { Tabs } from 'antd';
 import AdminNew from './AdminNew'
 import AdminSetting from './AdminSetting'
 import AdminThese from './AdminThese'
+import {logintype} from './PageLogin'
 const TabPane = Tabs.TabPane;
 
 
 
 class PageAdmin extends Component{
     render(){
+        if (logintype!='admin'){
+            return (
+                <h1 style={{fontSize:40}}>请用管理员账户登录</h1>
+            )
+        }
         return (
             <div className="card-container">
                 <Tabs type="card">

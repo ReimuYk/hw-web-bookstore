@@ -40,6 +40,18 @@ class PageRegister extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        let url='http://localhost:8080/services/register'
+        let options={}
+        options.method='POST'
+        options.headers={ 'Accept': 'application/json', 'Content-Type': 'application/json', }
+        options.body=JSON.stringify(values)
+        console.log(options);
+        fetch(url,options).then(response=>response.text())
+          .then(responseJson=>{
+            alert(responseJson);
+        }).catch(function(e) {
+              console.log("Oops, error");
+        });
       }
     });
   }

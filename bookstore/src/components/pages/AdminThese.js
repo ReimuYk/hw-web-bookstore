@@ -2,18 +2,28 @@ import React, {Component} from 'react';
 import { Table, Input, Popconfirm, Button, Icon } from 'antd';
 
 const data = [];
-for (let i = 0; i < 10; i++) {
-  data.push({
-    key: i.toString(),
-    ID: i,
-    name: `Edrward ${i}`,
-    writer: 'www',
-    cost: 32,
-    date:'data',
-    publish:'pubpub',
-    address: `London Park no. ${i}`,
-  });
-}
+let url='http://localhost:8080/getbookdata'
+let options = {}
+options.method = 'GET'
+options.mode = 'cors'
+fetch(url,options).then(function(response){return response.text()})
+.then(function(res){
+  console.log('res',res)
+  res = eval('('+res+')')
+  for(var i=0;i<res.length;i++){
+    let item = {}
+    item.key = res[i]["id"].toString()
+    item.ID = res[i]["id"].toString()
+    item.name = res[i]["name"]
+    item.writer = res[i]["writer"]
+    item.cost = res[i]["price"]
+    item.date = res[i]["date"]
+    item.publish = res[i]["publish"]
+    item.num = 0
+    data.push(item)
+  }
+  console.log('data',data)
+})
 
 const EditableCell = ({ editable, value, onChange }) => (
   <div>
@@ -38,7 +48,7 @@ class AdminThese extends React.Component {
         title: '书名',
         dataIndex: 'name',
         key: 'name',
-        width:220,
+        width:170,
         sorter: (a,b)=>a<b,
         filterDropdown: (
           <div className="custom-filter-dropdown">
@@ -65,28 +75,28 @@ class AdminThese extends React.Component {
         title: '作者',
         dataIndex: 'writer',
         key: 'writer',
-        width:100,
-        render: (text, record) => this.renderColumns(text, record, 'name')
+        width:150,
+        render: (text, record) => this.renderColumns(text, record, 'writer')
       }, {
         title: '价格',
         dataIndex: 'cost',
         key: 'cost',
         width:100,
         sorter: (a,b)=>a.cost-b.cost,
-        render: (text, record) => this.renderColumns(text, record, 'name')
+        render: (text, record) => this.renderColumns(text, record, 'cost')
       }, {
         title: '出版年份',
         dataIndex: 'date',
         key: 'date',
         width:200,
         sorter: (a,b)=>a<b,
-        render: (text, record) => this.renderColumns(text, record, 'name')
+        render: (text, record) => this.renderColumns(text, record, 'date')
       }, {
         title: '出版社',
         dataIndex: 'publish',
         key: 'publish',
         width:200,
-        render: (text, record) => this.renderColumns(text, record, 'name')
+        render: (text, record) => this.renderColumns(text, record, 'publish')
       }, {
         title: '编辑',
         dataIndex: 'edit',
@@ -167,6 +177,10 @@ class AdminThese extends React.Component {
   handleChange(value, key, column) {
     const newData = [...this.state.data];
     const target = newData.filter(item => key === item.key)[0];
+    console.log('target',target);
+    console.log('value',value)
+    console.log('key',key)
+    console.log('column',column)
     if (target) {
       target[column] = value;
       this.setState({ data: newData });
@@ -188,11 +202,42 @@ class AdminThese extends React.Component {
       this.setState({ data: newData });
       this.cacheData = newData.map(item => ({ ...item }));
     }
+    console.log('newdata',newData)
+    let url='http://localhost:8080/services/modifydata'
+    let options={}
+    options.method='POST'
+    options.headers={ 'Accept': 'application/json', 'Content-Type': 'application/json', }
+    var i;
+    for (i=0;i<newData.length;i++){
+      if(newData[i].key==key){
+        options.body=JSON.stringify(newData[i])
+      }
+    }
+    console.log(options);
+    fetch(url,options)
+      .then(response=>response.text())
+      .then(responseJson=>{
+        console.log(responseJson);
+    }).catch(function(e) {
+          console.log("Oops, error");
+    });
   }
   delete(key) {
     for (var i=0;i<data.length;i++){
       console.log(i,data[i],key)
       if (data[i].key===key){
+        let url='http://localhost:8080/services/deletedata'
+        let options={}
+        options.method='POST'
+        options.headers={ 'Accept': 'application/json', 'Content-Type': 'application/json', }
+        options.body=JSON.stringify(data[i]);
+        fetch(url,options)
+          .then(response=>response.text())
+          .then(responseJson=>{
+            console.log(responseJson);
+        }).catch(function(e) {
+              console.log("Oops, error");
+        });
         data.splice(i,1);
         this.setState({data:data})
       }

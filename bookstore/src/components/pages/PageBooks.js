@@ -35,6 +35,31 @@ export const data = [{
   num:0,
 },];
 
+data.splice(0,data.length)
+let url='http://localhost:8080/getbookdata'
+let options = {}
+options.method = 'GET'
+options.mode = 'cors'
+console.log("outer")
+fetch(url,options).then(function(response){return response.text()})
+.then(function(res){
+  console.log('res',res)
+  res = eval('('+res+')')
+  for(var i=0;i<res.length;i++){
+    let item = {}
+    item.key = res[i]["id"].toString()
+    item.ID = res[i]["id"].toString()
+    item.name = res[i]["name"]
+    item.writer = res[i]["writer"]
+    item.cost = res[i]["price"]
+    item.date = res[i]["date"]
+    item.publish = res[i]["publish"]
+    item.num = 0
+    data.push(item)
+  }
+  console.log('data',data)
+})
+
 var stat={
   this_rowkey:"",
 }
@@ -84,6 +109,14 @@ function prt(a1,record){
 
 
 class PageBooks extends Component{
+  constructor(props) {
+    super(props)
+    console.log("constructor")
+    this.setState({
+      data:data
+    })
+  }
+
   state = {
     filterDropdownVisibleSearch: false,
     filterDropdownVisibleCost: false,
@@ -96,7 +129,6 @@ class PageBooks extends Component{
     filtered: false,
   };
  
-
   onInputChange = (e) => {
     this.setState({ searchText: e.target.value });
   }
@@ -182,6 +214,7 @@ class PageBooks extends Component{
     });
   }
   render(){
+    console.log("render")
     const columns = [{
       title: 'ID',
       dataIndex: 'ID',
