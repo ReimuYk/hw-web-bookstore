@@ -104,13 +104,37 @@ class PageBuyerlist extends Component{
         footer={()=>(
           <div style={{marginLeft:800}}>
             <a style={{fontSize:35}}>Total:</a>
-            <a style={{fontSize:35}}>   {totalCost}</a>
+            <a style={{fontSize:35}}>   {totalCost.toFixed(2)}</a>
           </div>
         )}
         />
-        <Button type='primary'>Submit</Button>
+        <Button type='primary' onClick={this.createorder}>Submit</Button>
       </div>
     )
+  }
+  createorder(){
+    console.log("outdata",outData);
+    let l = []
+    for (var i=0;i<outData.length;i++){
+      l.push({
+        bookid:outData[i].ID,
+        num:outData[i].num,
+        price:outData[i].cost
+      })
+    }
+    let url='http://localhost:8080/services/createorder'
+    let options = {}
+    options.method = 'POST'
+    options.mode = 'cors'
+    options.headers={ 'Accept': 'application/json', 'Content-Type': 'application/json', }
+    options.body=JSON.stringify({booklist:l})
+    options.credentials = 'include'
+    console.log("outer")
+    fetch(url,options).then(function(response){return response.text()})
+    .then(function(res){
+      alert(res);
+      window.location.href='#'
+    })
   }
   setRowKey(record,index){
     stat.this_rowkey=record.ID;
