@@ -14,47 +14,9 @@ class AdminNew extends React.Component {
       date:"",
       publish:""
     };
-  }
-  handleFormLayoutChange = (e) => {
-    this.setState({ formLayout: e.target.value });
-  }
-  setNameInput = (e)=>{
-    this.setState({name:e.target.value})
-  }
-  setWriterInput = (e)=>{
-    this.setState({writer:e.target.value})
-  }
-  setCostInput = (e)=>{
-    this.setState({cost:e.target.value})
-  }
-  setDateInput = (e)=>{
-    this.setState({date:e.target.value})
-  }
-  setPublishInput = (e)=>{
-    this.setState({publish:e.target.value})
-  }
-  submit = ()=>{
-    console.log(this.state)
-    let jsonbody={}
-    jsonbody.name=this.state.name
-    jsonbody.writer=this.state.writer
-    jsonbody.cost=parseFloat(this.state.cost)
-    jsonbody.date=this.state.date
-    jsonbody.publish=this.state.publish
-    let url='http://localhost:8080/services/newdata'
-    let options={}
-    options.method='POST'
-    options.headers={ 'Accept': 'application/json', 'Content-Type': 'application/json', }
-    options.body=JSON.stringify(jsonbody)
-    console.log(options);
-    fetch(url,options)
-      .then(response=>response.text())
-      .then(responseJson=>{
-        console.log(responseJson);
-    }).catch(function(e) {
-          console.log("Oops, error");
-    });
-  }
+  };
+
+  
   render() {
     const { formLayout } = this.state;
     const formItemLayout = formLayout === 'horizontal' ? {
@@ -103,6 +65,46 @@ class AdminNew extends React.Component {
         </Form>
       </div>
     );
+  }
+  handleFormLayoutChange = (e) => {
+    this.setState({ formLayout: e.target.value });
+  }
+  setNameInput = (e)=>{
+    this.setState({name:e.target.value})
+  }
+  setWriterInput = (e)=>{
+    this.setState({writer:e.target.value})
+  }
+  setCostInput = (e)=>{
+    this.setState({cost:e.target.value})
+  }
+  setDateInput = (e)=>{
+    this.setState({date:e.target.value})
+  }
+  setPublishInput = (e)=>{
+    this.setState({publish:e.target.value})
+  }
+  submit = ()=>{
+    console.log(this.state)
+    let jsonbody={}
+    jsonbody.name=this.state.name
+    jsonbody.writer=this.state.writer
+    jsonbody.cost=parseFloat(this.state.cost)
+    jsonbody.date=this.state.date
+    jsonbody.publish=this.state.publish
+    let url='http://localhost:8080/services/newdata'
+    let options={}
+    options.method='POST'
+    options.headers={ 'Accept': 'application/json', 'Content-Type': 'application/json', }
+    options.body=JSON.stringify(jsonbody)
+    console.log(options);
+    fetch(url,options)
+      .then(response=>response.text())
+      .then(responseJson=>{
+        console.log(responseJson);
+    }).catch(function(e) {
+          console.log("Oops, error");
+    });
   }
 }
 

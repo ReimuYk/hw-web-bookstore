@@ -8,6 +8,7 @@
 
 # production
 /build
+/babelbuild
 
 # misc
 .DS_Store
