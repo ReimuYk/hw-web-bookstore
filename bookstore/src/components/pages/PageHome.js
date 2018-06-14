@@ -23,7 +23,7 @@ class PageHome extends Component{
                             <h1 class="rowhead">热销书籍</h1>
                         </Col>
                         <Col style={{width:1200}}>
-                            <Link to="./details?bid=B123456">
+                            <Link to="./details?bid=15">
                             <img src={require("./assets/bk1.jpg")} class="smallbook"/>
                             </Link>
                             <img src={require("./assets/bk1.jpg")} class="smallbook"/>

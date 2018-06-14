@@ -34,6 +34,7 @@ class Infomation extends Component{
             newpwd1:'',
             newpwd2:''
         }
+        window.location.href='#'
     }
     onInputChangePhone = (e) => {
         this.setState({ phone: e.target.value });

@@ -37,6 +37,10 @@ module.exports = {
 		{
 			test:/\.(png|jpg|gif)$/,
 			loader:['url-loader','file-loader']
+		},
+		{
+			test:/\.(htm|html)$/,
+			loader:['raw-loader']
 		}],
 
 	}

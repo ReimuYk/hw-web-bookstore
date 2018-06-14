@@ -55,6 +55,7 @@ fetch(url,options).then(function(response){return response.text()})
     item.date = res[i]["date"]
     item.publish = res[i]["publish"]
     item.num = 0
+    item.picture = res[i].picture
     data.push(item)
   }
   console.log('data',data)

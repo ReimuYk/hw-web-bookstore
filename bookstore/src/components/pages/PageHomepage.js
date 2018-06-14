@@ -6,14 +6,15 @@ const TabPane = Tabs.TabPane
 
 class PageHomepage extends Component{
     render(){
+        
         return (
             <Tabs defaultActiveKey="1">
                 <TabPane tab={<span><Icon type="idcard" />个人信息</span>} key="1">
                     <Infomation/>
                 </TabPane>
-                <TabPane tab={<span><Icon type="book" />收藏夹</span>} key="2">
+                {/* <TabPane tab={<span><Icon type="book" />收藏夹</span>} key="2">
                     <Favorite/>
-                </TabPane>
+                </TabPane> */}
             </Tabs>
         )
     }
