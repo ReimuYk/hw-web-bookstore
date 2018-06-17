@@ -31,6 +31,8 @@ class AdminNew extends React.Component {
       cost:"",
       date:"",
       publish:"",
+      category:"",
+      leftnum:0,
       loading: false,
     };
   };
@@ -78,7 +80,7 @@ class AdminNew extends React.Component {
           beforeUpload={beforeUpload}
           onChange={this.handleChange}
         >
-          {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
+          {imageUrl ? <img src={imageUrl} alt="avatar" width="150"/> : uploadButton}
         </Upload>
         </div>
         <Form layout={formLayout}>
@@ -95,10 +97,22 @@ class AdminNew extends React.Component {
             <Input placeholder="input writer" value={this.state.writer} onChange={this.setWriterInput}/>
           </FormItem>
           <FormItem
+            label="种类"
+            {...formItemLayout}
+          >
+            <Input placeholder="input category" value={this.state.category} onChange={this.setCategoryInput}/>
+          </FormItem>
+          <FormItem
             label="价格"
             {...formItemLayout}
           >
             <Input placeholder="input cost" value={this.state.cost} onChange={this.setCostInput}/>
+          </FormItem>
+          <FormItem
+            label="库存数量"
+            {...formItemLayout}
+          >
+            <Input placeholder="input leftnum" value={this.state.leftnum} onChange={this.setLeftnumInput}/>
           </FormItem>
           <FormItem
             label="出版年份"
@@ -125,6 +139,12 @@ class AdminNew extends React.Component {
   setNameInput = (e)=>{
     this.setState({name:e.target.value})
   }
+  setCategoryInput = (e)=>{
+    this.setState({category:e.target.value})
+  }
+  setLeftnumInput = (e)=>{
+    this.setState({leftnum:e.target.value})
+  }
   setWriterInput = (e)=>{
     this.setState({writer:e.target.value})
   }
@@ -146,6 +166,8 @@ class AdminNew extends React.Component {
     jsonbody.cost=parseFloat(this.state.cost)
     jsonbody.date=this.state.date
     jsonbody.publish=this.state.publish
+    jsonbody.category=this.state.category
+    jsonbody.leftnum=this.state.leftnum
     jsonbody.picture=this.state.imageUrl
     let url='http://localhost:8080/services/newdata'
     let options={}

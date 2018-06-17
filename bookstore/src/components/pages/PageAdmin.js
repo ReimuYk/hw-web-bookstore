@@ -4,6 +4,7 @@ import AdminNew from './AdminNew'
 import AdminSetting from './AdminSetting'
 import AdminThese from './AdminThese'
 import {logintype} from './PageLogin'
+import AdminStat from './AdminStat'
 const TabPane = Tabs.TabPane;
 
 
@@ -24,8 +25,11 @@ class PageAdmin extends Component{
                 <TabPane tab="管理已有" key="2">
                     <AdminThese/>
                 </TabPane>
-                <TabPane tab="权限控制" key="3">
+                <TabPane tab="用户管理" key="3">
                     <AdminSetting/>
+                </TabPane>
+                <TabPane tab="销售统计" key="4">
+                    <AdminStat/>
                 </TabPane>
                 </Tabs>
             </div>

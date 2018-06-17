@@ -19,6 +19,8 @@ fetch(url,options).then(function(response){return response.text()})
     item.cost = res[i]["price"]
     item.date = res[i]["date"]
     item.publish = res[i]["publish"]
+    item.leftnum = res[i]["leftnum"]
+    item.category = res[i]["category"]
     item.num = 0
     data.push(item)
   }
@@ -91,6 +93,20 @@ class AdminThese extends React.Component {
         width:200,
         sorter: (a,b)=>a<b,
         render: (text, record) => this.renderColumns(text, record, 'date')
+      }, {
+        title: '分类',
+        dataIndex: 'category',
+        key: 'category',
+        width:100,
+        sorter: (a,b)=>a<b,
+        render: (text, record) => this.renderColumns(text, record, 'category')
+      }, {
+        title: '库存',
+        dataIndex: 'leftnum',
+        key: 'leftnum',
+        width:100,
+        sorter: (a,b)=>a<b,
+        render: (text, record) => this.renderColumns(text, record, 'leftnum')
       }, {
         title: '出版社',
         dataIndex: 'publish',

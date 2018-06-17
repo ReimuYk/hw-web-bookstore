@@ -54,6 +54,8 @@ fetch(url,options).then(function(response){return response.text()})
     item.cost = res[i]["price"]
     item.date = res[i]["date"]
     item.publish = res[i]["publish"]
+    item.leftnum = res[i]["leftnum"]
+    item.category = res[i]["category"]
     item.num = 0
     item.picture = res[i].picture
     data.push(item)
@@ -309,6 +311,16 @@ class PageBooks extends Component{
       title: '出版年份',
       dataIndex: 'date',
       key: 'date',
+      sorter: (a,b)=>a<b
+    }, {
+      title: '分类',
+      dataIndex: 'category',
+      key: 'category',
+      sorter: (a,b)=>a<b
+    }, {
+      title: '库存',
+      dataIndex: 'leftnum',
+      key: 'leftnum',
       sorter: (a,b)=>a<b
     }, {
       title: '出版社',
